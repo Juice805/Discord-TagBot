@@ -2,36 +2,49 @@ import discord
 import asyncio
 import logging
 import os
+from os.path import exists
 
 logging.basicConfig(level=logging.INFO)
 
+# String saved in environment to hide from public 
+TOKEN = os.getenv('TOKEN')
 
 client = discord.Client()
 
-
+# Bot Boots Up
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
+    print('Member of {} servers'.format(len(client.servers)))
     print('------')
+    
+    
+# Bot Joins Server
+@client.event
+async def on_server_join(server):
+    if exists('servers/'+server.id):
+        print('Rejoining server: '+server.name)
+    else:
+        print('Joined new server: '+server.name)
+        serverdata = open('servers/'+server.id, 'w')
+        serverdata.write('work in progress')
+        serverdata.close()
 
+
+# Bot receives Message
 @client.event
 async def on_message(message):
-    counter = 0
-    if message.content.startswith('!test'):
+    
+    # In Private
+    if message.server == None:
+        print('Received Private Message')
         
-        tmp = await client.send_message(message.channel, 'Calculating messages...')
-        async for log in client.logs_from(message.channel, limit=100):
-            if log.author == message.author:
-                counter += 1
+    
+    # In Channel
+    else:
+        print('Recieved Message in channel #'+message.channel.name+' on server '+message.server.name)
+    
 
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-    elif message.content.startswith('!reset'):
-        tmp = await client.send_message(message.channel, 'Resetting count...')
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-    elif message.content.startswith('!sleep'):
-        await asyncio.sleep(5)
-        await client.send_message(message.channel, 'Done sleeping')
-
-client.run('MjAzMjk1NTg2NDk2MDIwNDgw.Cmm1RA.9rFKHQWaSatML42sgnw_zWuWrYE')
+client.run(TOKEN)
