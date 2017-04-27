@@ -24,6 +24,7 @@ async def on_server_join(server):
     if exists('servers/'+server.id):
         print('Rejoining server: '+server.name)
         # TODO: Scan server and offer to clean tags if any found
+        # TODO: Check bot permissions and alert is insufficient
     else:
         print('Joined new server: '+server.name)
         serverdata = open('servers/'+server.id, 'w+')

@@ -27,7 +27,7 @@ class MessageContext:
 tagPermissions = discord.Permissions.none()
 
 # Tags that can't be added to
-blacklist = ['Bot Commander','Admin']
+blacklist = ['Bot Commander','Admin','everyone']
 
 def on_blacklist(roleName):
     
