@@ -11,4 +11,4 @@ client.on('message', message => {
 	}
 });
 
-client.login(process.env.DISCORD_API_KEY);
+client.login(process.env.DISCORD_TOKEN);
