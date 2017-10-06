@@ -1,0 +1,22 @@
+{
+  "name": "discord-tagbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juice805/Discord-TagBot.git"
+  },
+  "author": "Justin Oroz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juice805/Discord-TagBot/issues"
+  },
+  "homepage": "https://github.com/Juice805/Discord-TagBot#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
