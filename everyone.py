@@ -90,12 +90,14 @@ class Everyone():
 	# Scope: Server
 
 	@commands.command(pass_context=True)
-	async def list(self, ctx):
+	async def list(self, ctx, mention: discord.Member = None):
 		"""List tags on the server
 		
 		Anyone may use this view all tags on the server
 		"""
 		the = MessageContext(ctx)
+		
+		# TODO: If user specified list their tags
 		
 		tags = []
 		
@@ -107,7 +109,6 @@ class Everyone():
 			message = 'Tags on ' + the.server.name + ':\n'
 		else: 
 			message = 'There are no tags on the server yet'
-			return
 		
 		for tag in tags:
 			

@@ -25,6 +25,8 @@ class Commanders():
 		"""
 		the = MessageContext(ctx)
 		
+		# TODO: Check file for new tag's color, saved per server in JSON
+		
 		# Check Permissions
 		if not is_BotCommander(ctx) and not is_Admin(ctx):
 			await sayerror('Insufficient Permissions', 'You must be a `@Bot Commander` to use this command')
@@ -34,14 +36,18 @@ class Commanders():
 		if on_blacklist(tag):
 			await sayerror('Blacklisted','That Tag name is blacklisted, please choose another.')
 			return
+		
+		if tag[0] == '@':
+			tag = tag[1:]
 			
 		matchingTag = get_role(the.server, tag)
 		
 		# New tag
 		if not matchingTag:
 			matchingTag = await create_tag(the.server, tag, not private)
-			memberbot = discord.utils.get(the.server.members, id=self.bot.user.id)
-			await self.bot.add_roles(memberbot, matchingTag)
+			if not private: # Add tag to bot
+				memberbot = discord.utils.get(the.server.members, id=self.bot.user.id)
+				await self.bot.add_roles(memberbot, matchingTag)
 			await say('Tag Created: '+matchingTag.mention) 
 			print('Added Tag: @'+matchingTag.name)
 			return
@@ -69,25 +75,25 @@ class Commanders():
 	# Scope: Server
 
 	@commands.command(pass_context=True)
-	async def deltag(self, ctx, tag : str):
+	async def deltag(self, ctx, tag):
 		"""Deletes a tag
 		
 		Bot Commanders may use this command to delete tags from the server
-		"""
+		"""		
 		the = MessageContext(ctx)
 		# Check power
 		if not is_BotCommander(ctx) and not is_Admin(ctx):
 			await sayerror('Insufficient Permissions', 'You must be a `@Bot Commander` to use this command')
 			print('deltag: Not @Bot Commander')
 			return
-			
-		matchingTag = get_tags(the.server, tag)
 		
+		matchingTag = get_tags(the.server, tag)
+				
 		if len(matchingTag) == 1:
 			await self.bot.delete_role(the.server, matchingTag[0])
 			await say('@' + matchingTag[0].name + ' deleted')
 		elif len(matchingTag) > 1:
-			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate or use the `' + PREFIX + 'clean` command to resolve automatically')
+			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate in server settings or use the `' + PREFIX + 'clean` command to resolve automatically')
 		else: 
 			await sayerror('Tag does not exist')
 		return
@@ -117,7 +123,7 @@ class Commanders():
 					
 		matchingTag = get_tags(the.server, tag)
 		if len(matchingTag) > 1:
-			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate or use the `' + PREFIX + 'clean` command to resolve automatically')
+			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate in server settings or use the `' + PREFIX + 'clean` command to resolve automatically')
 			return
 		elif len(matchingTag) == 0: 
 			await sayerror('Tag does not exist')
@@ -156,7 +162,7 @@ class Commanders():
 					
 		matchingTag = get_tags(the.server, tag)
 		if len(matchingTag) > 1:
-			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate or use the `' + PREFIX + 'clean` command to resolve automatically')
+			await sayerror('Duplicate tag @' + matchingTag[0].name + ' detected!','Please resolve the duplicate in server settings or use the `' + PREFIX + 'clean` command to resolve automatically')
 			return
 		elif len(matchingTag) == 0: 
 			await sayerror('Tag does not exist')

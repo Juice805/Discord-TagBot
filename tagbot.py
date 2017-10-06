@@ -21,10 +21,15 @@ async def on_ready():
 # Bot Joins Server
 @bot.event
 async def on_server_join(server):
+    
+    botmember = server.get_member(bot.user.id)
+    bot.change_nickname(botmember,'Tag')
+    # TODO: Scan server and offer to clean tags if any found
+    # TODO: Check bot permissions and alert is insufficient
+    
     if exists('servers/'+server.id):
         print('Rejoining server: '+server.name)
-        # TODO: Scan server and offer to clean tags if any found
-        # TODO: Check bot permissions and alert is insufficient
+        
     else:
         print('Joined new server: '+server.name)
         serverdata = open('servers/'+server.id, 'w+')
