@@ -52,6 +52,10 @@ client.registry
 
 client.on('ready', () => {
 	console.log('I am ready!');
+	const owner = client.fetchUser(process.env.COMMANDO_OWNER);
+	owner.then(function(user) {
+		user.send('Hello World!');
+	})
 });
 
 client.on('message', message => {
