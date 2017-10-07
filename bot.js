@@ -48,7 +48,7 @@ client.registry
 //.registerDefaults()
 
 // Registers all of your commands in the ./commands/ directory
-//.registerCommandsIn(path.join(__dirname, 'commands'));
+.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on('ready', () => {
 	console.log('I am ready!');
