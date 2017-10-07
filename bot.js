@@ -1,5 +1,5 @@
+//const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
-const Discord = require('discord.js');
 const path = require('path');
 const http = require('http');
 const fs = require('fs');
