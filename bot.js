@@ -46,6 +46,13 @@ client.registry
 
 // Registers all built-in groups, commands, and argument types
 //.registerDefaults()
+.registerDefaultCommands({
+	help: true,
+	eval_: false,
+	prefix: false,
+	ping: false.
+	commandState: false
+})
 
 // Registers all of your commands in the ./commands/ directory
 .registerCommandsIn(path.join(__dirname, 'commands'));
