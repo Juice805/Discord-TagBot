@@ -50,7 +50,7 @@ client.registry
 	help: true,
 	eval_: false,
 	prefix: false,
-	ping: false.
+	ping: false,
 	commandState: false
 })
 
