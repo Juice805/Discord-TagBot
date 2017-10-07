@@ -1,8 +1,13 @@
+const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
-const client = new Discord.Client();
-
+const path = require('path');
 const http = require('http');
 const fs = require('fs');
+const sqlite = require('sqlite');
+
+// ************************************* \\
+// Simple response to HTTP requests
+// ************************************* \\
 
 http.createServer(function(req, res) {
 	data = "Bot is running!";
@@ -13,6 +18,37 @@ http.createServer(function(req, res) {
 	res.write(data);
 	res.end();
 }).listen(process.env.PORT);
+
+// ************************************* \\
+// Commando
+// ************************************* \\
+
+// For standard Discord JS API use
+//const client = new Discord.Client();
+
+// For Commando Use
+const client = new Commando.Client({
+	owner: process.env.COMMANDO_OWNER,
+	commandPrefix: '<'
+});
+
+// ************************************* \\
+// Commando Group Registration
+// ************************************* \\
+
+client.registry
+	// Registers your custom command groups
+	.registerGroups([
+		['admin', 'Admin Only'],
+		['everyone', 'Everyone'],
+		['misc', 'Miscellaneous']
+	])
+
+// Registers all built-in groups, commands, and argument types
+.registerDefaults()
+
+// Registers all of your commands in the ./commands/ directory
+.registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on('ready', () => {
 	console.log('I am ready!');
