@@ -15,7 +15,7 @@ module.exports = class TagMeCommand extends commando.Command {
 				key: 'tags',
 				label: 'tags',
 				prompt: 'What would you like to tag yourself with?',
-				//type: 'tags',
+				type: 'string',
 				infinite: true
 			}]
 		});
