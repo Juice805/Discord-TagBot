@@ -41,11 +41,15 @@ client.registry
 	.registerGroups([
 		['admin', 'Admin Only'],
 		['everyone', 'Everyone'],
-		['misc', 'Miscellaneous']
+		['misc', 'Miscellaneous'],
+		['util', 'Utility']
 	])
 
 // Registers all built-in groups, commands, and argument types
 //.registerDefaults()
+
+.registerDefaultTypes()
+
 .registerDefaultCommands({
 	help: true,
 	eval_: false,
