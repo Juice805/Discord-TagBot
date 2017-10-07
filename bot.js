@@ -1,5 +1,5 @@
 //const Discord = require('discord.js');
-const Commando = require('discord.js-commando');
+const commando = require('discord.js-commando');
 const path = require('path');
 const http = require('http');
 const fs = require('fs');
@@ -27,7 +27,7 @@ http.createServer(function(req, res) {
 //const client = new Discord.Client();
 
 // For Commando Use
-const client = new Commando.Client({
+const client = new commando.Client({
 	owner: process.env.COMMANDO_OWNER,
 	commandPrefix: '<'
 });
@@ -45,7 +45,7 @@ client.registry
 	])
 
 // Registers all built-in groups, commands, and argument types
-.registerDefaults()
+//.registerDefaults()
 
 // Registers all of your commands in the ./commands/ directory
 //.registerCommandsIn(path.join(__dirname, 'commands'));
@@ -56,7 +56,7 @@ client.on('ready', () => {
 	owner.then(function(user) {
 		user.send('Hello World!');
 	}, function(error) {
-		console.log(error);
+		console.log('Unable to message owner: ' + error);
 	})
 });
 
