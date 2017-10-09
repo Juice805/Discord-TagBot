@@ -19,6 +19,12 @@ http.createServer(function(req, res) {
 	res.end();
 }).listen(process.env.PORT);
 
+// Prevent Heroku Sleep
+
+setInterval(function() {
+	http.get("http://discord-tagbot.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
+
 // ************************************* \\
 // Commando
 // ************************************* \\
@@ -72,8 +78,8 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-	if (message.content === 'ping') {
-		message.reply('pong');
+	if (message.content === 'hey') {
+		message.reply('hello!');
 	}
 });
 
