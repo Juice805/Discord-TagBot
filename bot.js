@@ -67,20 +67,59 @@ client.registry
 // Registers all of your commands in the ./commands/ directory
 .registerCommandsIn(path.join(__dirname, 'commands'));
 
+// ************************************* \\
+// Bot On Ready
+// ************************************* \\
+
 client.on('ready', () => {
-	console.log('I am ready!');
+	console.log('Logged in as');
+	console.log(client.user.username);
+	console.log(client.user.id);
+	console.log('Member of ' + client.guilds.array().length + ' servers.');
+	console.log('---------');
+
+	// Send a message to the owner
 	const owner = client.fetchUser(process.env.COMMANDO_OWNER);
 	owner.then(function(user) {
-		user.send('Hello World!');
+		user.send("I'm Awake!");
 	}, function(error) {
 		console.log('Unable to message owner: ' + error);
 	})
 });
 
+// ************************************* \\
+// Bot On Message
+// ************************************* \\
+
+client.on('guildCreate', guild => {
+
+	// Change bot nickname on server join
+	const member = guild.member(client.user);
+	member.setNickname('Tag');
+
+	// TODO: Add server to database
+	console.log(`Joined Server: ${guild.name}`);
+
+});
+
+// ************************************* \\
+// Bot On Message
+// ************************************* \\
+
 client.on('message', message => {
+
+	// Ignore bots own messages
+	if (message.author === client.user) {
+		return;
+	}
+
 	if (message.content === 'hey') {
 		message.reply('hello!');
 	}
 });
 
+
+
+
+// Setup Complete, Login
 client.login(process.env.DISCORD_TOKEN);

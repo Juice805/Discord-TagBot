@@ -8,7 +8,7 @@ module.exports = class TagMeCommand extends commando.Command {
 			group: 'everyone',
 			memberName: 'tagme',
 			description: 'Tag yourself',
-			examples: ['tagme awesome', 'tagme overwatch'],
+			examples: ['<tagme awesome', '<tagme overwatch'],
 			guildOnly: true,
 
 			args: [{
