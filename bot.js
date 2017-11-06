@@ -81,7 +81,8 @@ client.on('ready', () => {
 	// Send a message to the owner
 	const owner = client.fetchUser(process.env.COMMANDO_OWNER);
 	owner.then(function(user) {
-		user.send("I'm Awake!");
+		//user.send("I'm Awake!");
+		console.log("I'm Awake!");
 	}, function(error) {
 		console.log('Unable to message owner: ' + error);
 	})
